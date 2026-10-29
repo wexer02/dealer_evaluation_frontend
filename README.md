@@ -8,13 +8,14 @@ previous dealer selection and price.
 
 ## Current status
 
-The local preview uses the Product Details API on port 5100 and Dealer Pricing
-API on port 5180. Browser checks verified Laptop pricing for Tech City ($850)
-and all dealers ($850, $1000 and $1500).
+The frontend and both backend services are deployed on IBM Code Engine.
+`html/index.html` uses the real HTTPS backend URLs.
 
-Code Engine deployment is pending course-provided access. The URLs in
-`html/index.html` are local preview endpoints, not deployed Code Engine URLs.
-Replace `produrl` and `dealerurl` with the real backend URLs after deployment.
+Application: https://dealer-evaluation.2giim37ib6oe.us-south.codeengine.appdomain.cloud/
+
+Live API checks passed for four products, twelve individual dealer prices,
+four complete price lists, and cross-origin access. Browser checks verified
+Laptop pricing for Tech City ($850) and all dealers ($850, $1000 and $1500).
 
 ## Local run
 
@@ -25,4 +26,5 @@ then run this command from this repository:
 python -m flask --app app run --host=127.0.0.1 --port=5101 --no-reload
 ```
 
-Open http://127.0.0.1:5101/ to test the integration. The frontend container uses port 5001.
+Open http://127.0.0.1:5101/ to test the integration with the deployed APIs.
+The frontend container uses port 5001.
