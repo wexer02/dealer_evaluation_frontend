@@ -11,7 +11,7 @@ previous dealer selection and price.
 The frontend and both backend services are deployed on IBM Code Engine.
 `html/index.html` uses the real HTTPS backend URLs.
 
-Application: https://dealer-evaluation.2giim37ib6oe.us-south.codeengine.appdomain.cloud/
+Application: https://dealer-evaluation.2gigbvkbdmwi.us-south.codeengine.appdomain.cloud/
 
 Live API checks passed for four products, twelve individual dealer prices,
 four complete price lists, and cross-origin access. Browser checks verified
