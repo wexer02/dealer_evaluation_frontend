@@ -6,8 +6,8 @@
 }
   </style>
   <script>
-    let produrl = "http://localhost:5000/"
-    let dealerurl = "http://localhost:8080/"
+    let produrl = "http://127.0.0.1:5100/"
+    let dealerurl = "http://127.0.0.1:5180/"
 
     axios.get(produrl+"products").then(res=>{
       let selEl = document.createElement("select");
@@ -25,15 +25,17 @@
         selEl.appendChild(optEl);
       })
       let prod = document.getElementById('prod_dd');
-      prod.childNodes.forEach(node=>prod.removeChild(node));
+      prod.replaceChildren();
       prod.appendChild(selEl);
     });
 
     let getDealers = ()=>{
       let valToFetch = document.getElementById("selProd").value;
+      document.getElementById("dealers").replaceChildren();
+      document.getElementById("pricing").replaceChildren();
 
       if(valToFetch != "--SELECT--") {
-        axios.get(produrl+"getdealers/"+valToFetch).then(res=>{
+        axios.get(produrl+"getdealers/"+encodeURIComponent(valToFetch)).then(res=>{
         let selEl = document.createElement("select");
         selEl.setAttribute("id","selDealer")
         selEl.setAttribute("onChange","getDealerProductPrice()")
@@ -53,7 +55,7 @@
         selEl.appendChild(optEl);
 
         let dealers = document.getElementById('dealers');
-        dealers.childNodes.forEach(node=>dealers.removeChild(node));
+        dealers.replaceChildren();
         dealers.appendChild(selEl);
         })
     }
@@ -64,14 +66,15 @@
       let dealervalToFetch = document.getElementById("selDealer").value;
 
       let pricingEl = document.getElementById("pricing");
-      pricingEl.childNodes.forEach(node=>pricingEl.removeChild(node));
+      pricingEl.replaceChildren();
 
+      if (dealervalToFetch === '--SELECT--') return;
       if (dealervalToFetch != 'All Dealers') {
-        axios.get(dealerurl+"price/"+dealervalToFetch+"/"+prodvalToFetch).then(res=>{
+        axios.get(dealerurl+"price/"+encodeURIComponent(dealervalToFetch)+"/"+encodeURIComponent(prodvalToFetch)).then(res=>{
           document.getElementById("pricing").innerText = res.data.message;
         })
       } else {
-        axios.get(dealerurl+"allprice/"+prodvalToFetch).then(res=>{
+        axios.get(dealerurl+"allprice/"+encodeURIComponent(prodvalToFetch)).then(res=>{
           let table = document.createElement("table")
 
           res.data.prices.forEach((price)=>{
